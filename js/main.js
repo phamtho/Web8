@@ -39,47 +39,47 @@ var create = function(){
   Nakama.keyboard = Nakama.game.input.keyboard;
 
   Nakama.background = Nakama.game.add.sprite(0,-960,"background");
-  Nakama.player = Nakama.game.add.sprite(400,400, 'assets', 'Spaceship1-Player.png');
-  Nakama.player2 = Nakama.game.add.sprite(200,500, 'assets', 'Spaceship2-Player.png');
+
+  Nakama.players = [];
+  Nakama.players.push(new ShipController(
+    200,
+    400,
+    'Spaceship1-Player.png',
+    {
+      left: Phaser.Keyboard.LEFT,
+      right: Phaser.Keyboard.RIGHT,
+      up : Phaser.Keyboard.UP,
+      down: Phaser.Keyboard.DOWN,
+      fire: Phaser.Keyboard.SPACEBAR
+    }
+    )
+  );
+  Nakama.players.push(new ShipController(
+    350,
+    350,
+    'Spaceship2-Player.png',
+    {
+      left: Phaser.Keyboard.A,
+      right: Phaser.Keyboard.D,
+      up : Phaser.Keyboard.W,
+      down: Phaser.Keyboard.S,
+      fire: Phaser.Keyboard.F
+    }
+    )
+  );
 }
+
 
 // update game state each frame
 var update = function(){
-  if(Nakama.keyboard.isDown(Phaser.Keyboard.LEFT)){
-    if(Nakama.player.position.x > 0) Nakama.player.position.x -= 10;
-  }
+  /*for(var player of Nakama.players){
+    player.update();
+  }*/
 
-  if(Nakama.keyboard.isDown(Phaser.Keyboard.RIGHT)){
-    if(Nakama.player.position.x < Nakama.configs.GAME_WIDTH-Nakama.player.width) Nakama.player.position.x += 10;
-  }
-
-  if(Nakama.keyboard.isDown(Phaser.Keyboard.UP)){
-    if(Nakama.player.position.y > 0) Nakama.player.position.y -= 10;
-  }
-
-  if(Nakama.keyboard.isDown(Phaser.Keyboard.DOWN)){
-    if(Nakama.player.position.y < Nakama.configs.GAME_HEIGHT-Nakama.player.height) Nakama.player.position.y += 10;
-  }
-
-  if(Nakama.keyboard.isDown(Phaser.Keyboard.A)){
-    if(Nakama.player2.position.x > 0) Nakama.player2.position.x -= 10;
-  }
-
-  if(Nakama.keyboard.isDown(Phaser.Keyboard.D)){
-    if(Nakama.player2.position.x < Nakama.configs.GAME_WIDTH-Nakama.player.width) Nakama.player2.position.x += 10;
-  }
-
-  if(Nakama.keyboard.isDown(Phaser.Keyboard.W)){
-    if(Nakama.player2.position.y > 0) Nakama.player2.position.y -= 10;
-  }
-
-  if(Nakama.keyboard.isDown(Phaser.Keyboard.S)){
-    if(Nakama.player2.position.y < Nakama.configs.GAME_HEIGHT-Nakama.player.height) Nakama.player2.position.y += 10;
-  }
-
-  Nakama.background.y = Nakama.background.y + 1;
+  //Nakama.player.update();
+  //Nakama.player2.update();
+  Nakama.background.y = Nakama.background.y + 5;
   if(Nakama.background.y > 0) Nakama.background.y = Nakama.background.y - Nakama.configs.GAME_HEIGHT;
-
 }
 
 // before camera render (mostly for debug)
