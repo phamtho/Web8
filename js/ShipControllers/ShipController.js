@@ -1,22 +1,21 @@
 class ShipController{
   constructor(x, y, spriteName, configs){
-    this.sprite = Nakama.game.add.sprite(x,y,'assets',spriteName);
-
-    Nakama.game.physics.arcade.enable(this.sprite); //dung cai nay
+    this.sprite = Nakama.playerGroup.create(x,y,'assets',spriteName);
 
     this.sprite.body.collideWorldBounds = true;
+    this.sprite.anchor = new Phaser.Point(0.5,0.5);
 
     this.configs = configs;
-    this.configs.SHIP_SPEED = 300;
+    this.sprite.health = this.configs.health;
 
     this.bullet = [];
-    this.bullet.RELOAD_SPEED = 10;
     this.bullet.timer = this.bullet.RELOAD_SPEED;
 
     this.sprite.update = this.update.bind(this);
   }
 //sprite la anh
   update(){
+    if(!this.sprite.alive) return;
     if(Nakama.keyboard.isDown(this.configs.left)){
     //  if(this.sprite.position.x > 0) this.sprite.position.x -= 10;
       this.sprite.body.velocity.x = -this.configs.SHIP_SPEED;
@@ -44,9 +43,10 @@ class ShipController{
     if(Nakama.keyboard.isDown(this.configs.fire)){
       if(this.bullet.timer < this.bullet.RELOAD_SPEED) this.bullet.timer++;
       else{
-        this.bullet.push(new BulletController(this.sprite.position.x + this.sprite.width/4,this.sprite.position.y - this.sprite.height/3,'BulletType1.png'));
+        this.fire();
         this.bullet.timer = 0;
       }
     }
   }
+  fire(){ };
 }
