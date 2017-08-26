@@ -1,5 +1,7 @@
 nav.menu {
   text-align: center;
+  background: #D5B0AC;
+  color: #402E2A;
 }
 
 .menu span{
@@ -18,8 +20,9 @@ nav.menu {
   cursor: pointer;
 }
 
-.menu_vertical{
+nav.menu_vertical{
   margin-top: 20px;
+  background-color: #FFFFFF;
   width: 100px;
 }
 
